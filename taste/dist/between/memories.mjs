@@ -1,11 +1,12 @@
 import {readRecords,writeRecords,searchRecords,recordURL} from './records.mjs';
 const $=id=>document.getElementById(id),el=(tag,text,cls)=>{const e=document.createElement(tag);e.textContent=text;if(cls)e.className=cls;return e;};
-let kind='work',timer;
+let kind='all',timer;
 function toast(text){$('toast').textContent=text;clearTimeout(timer);timer=setTimeout(()=>$('toast').textContent='',4000);}
 function all(){return ['work','date'].flatMap(kind=>readRecords(kind).map(record=>({record,kind})));}
 function render(){const list=$('memory-list');list.replaceChildren();$('storage-error').textContent='';document.querySelectorAll('[data-kind]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.kind===kind)));let records;try{records=all();}catch{$('storage-error').textContent='無法讀取本機紀錄，請檢查儲存權限。原始資料未被修改。';$('memory-count').textContent='';return;}
- const filtered=records.filter(x=>kind==='all'||x.kind===kind).filter(x=>searchRecords([x.record],$('search').value).length).sort((a,b)=>(b.record.savedAt||'').localeCompare(a.record.savedAt||''));$('memory-count').textContent=`${filtered.length} 筆紀錄`;
- if(!filtered.length)list.append(el('p',$('search').value?'找不到符合的紀錄。':'尚無工程紀錄。可匯入舊檔案，或在計算器儲存新紀錄。','memory-empty'));
+ const filtered=records.filter(x=>kind==='all'||x.kind===kind).filter(x=>searchRecords([x.record],$('search').value).length).sort((a,b)=>(b.record.savedAt||'').localeCompare(a.record.savedAt||''));$('memory-count').textContent=`顯示 ${filtered.length} 筆，共 ${records.length} 筆紀錄`;for(const b of document.querySelectorAll('[data-kind]')){const k=b.dataset.kind;const count=k==='all'?records.length:records.filter(x=>x.kind===k).length;b.textContent=({all:'全部',work:'工程工期',date:'日期相隔'})[k]+`（${count}）`;}
+ if(!filtered.length){const empty=el('div','','memory-empty');empty.append(el('p',$('search').value?'找不到符合搜尋條件的紀錄。':records.length?'此分類沒有紀錄；其他分類仍有已儲存項目。':'尚無紀錄；請在計算器按「儲存紀錄」。'));if(records.length){const showAll=el('button','顯示全部紀錄');showAll.type='button';showAll.onclick=()=>{kind='all';$('search').value='';render();};empty.append(showAll);}list.append(empty);}
+
  for(const {record:r,kind:k}of filtered){const card=el('details','','memory-item'),summary=el('summary',''),heading=el('div','');heading.append(el('h2',r.name||'未命名紀錄'),el('p',`${r.start} ／ ${r.end}`));summary.append(heading,el('strong',r.result));card.append(summary);const body=el('div','','memory-body');body.append(el('p',r.detail));if(r.savedAt){const d=new Date(r.savedAt);if(Number.isFinite(+d))body.append(el('p','儲存：'+d.toLocaleString('zh-TW')));}
  if(r.options){const fields=[['saturday','星期六'],['sunday','星期日'],['holidays','2026 國定假日']];body.append(el('p','排除：'+(fields.filter(([field])=>r.options[field]).map(([,name])=>name).join('、')||'無')));}
  if(r.snapshot){for(const [field,label]of (k==='work'?[['calendar','日曆天數'],['working','工作天數'],['excluded','排除天數']]:[['days','相隔天數'],['inclusive','含頭含尾']]))if(Number.isFinite(r.snapshot[field])){const line=el('div','','detail-line');line.append(el('span',label),el('b',r.snapshot[field]+' 天'));body.append(line);}}
