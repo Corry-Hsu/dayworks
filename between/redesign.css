@@ -10,3 +10,4 @@ body.blocks{--bg:#f1f2ed;--panel:#fffef9;--ink:#171b18;--muted:#5c6359;--line:#1
 .dates>span{padding-bottom:55px}
 
 header{flex-wrap:wrap}.plus-link{white-space:nowrap}
+.finish-inputs{margin:0 0 20px}.finish-inputs>label:first-child{font-size:14px}.finish-inputs input[type=number]{display:block;width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);font-size:18px;margin:8px 0 12px;min-height:46px}.include-start{display:flex;gap:8px;align-items:center;font-size:14px}.include-start input{width:18px;height:18px;accent-color:var(--accent)}.finish .number strong{font-size:clamp(25px,3vw,38px);letter-spacing:-1px;white-space:nowrap}.finish .number>span{display:none}.timeline .result.finish .number strong,.blocks .result.finish .number strong{font-size:clamp(25px,3vw,38px);letter-spacing:-1px}.modes button{white-space:nowrap}@media(max-width:480px){.modes{gap:3px}.modes button{font-size:14px;padding:9px 8px}}

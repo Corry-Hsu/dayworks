@@ -20,7 +20,7 @@ Ad-free date and construction workday calculator with scroll-wheel date selectio
 
 `between/` 日期工期與紀錄；`plus/` 日期加減；`tests/` 測試；`.github/workflows/pages.yml` 部署。
 
-假日僅內建2026年。來源：https://www.dgpa.gov.tw/information?pid=12574&uid=83 。其他年請取消國定假日選項。
+目前版假日內建2026–2027年。來源：https://www.dgpa.gov.tw/information?pid=12574&uid=83 。其他年請取消國定假日選項。
 
 ## 分頁結構（更新）
 
@@ -35,3 +35,9 @@ Ad-free date and construction workday calculator with scroll-wheel date selectio
 ## 紀錄匯入
 
 工程紀錄頁的「匯入舊紀錄」可讀取此工具匯出的JSON（最多5MB），合併兩種類型，略過相同ID，不覆蓋已存在項目；格式或寫入錯誤會顯示原因。
+
+## 工作天推算完工日（目前版）
+
+在日期計算選「推算完工日」，輸入開工日與正整數工作天數，設定開工當天是否計入第1個工作天，再設定排除週六、週日與國定假日。開工日若被排除，即使勾選計入也不會當成工作天。預定完工日會即時更新，並可存入工程紀錄；載回及跨風格切換會保留工作天數、計入方式與排除設定。
+
+假日資料含2026與2027年，推算超出覆蓋年度時會提示停止；取消假日可單獨使用週末規則。2027/12/31包含2028元旦提前補假。資料來源詳見 HOLIDAYS.md。政府機關日曆不等同個別工程契約，颱風停工與專案自訂停工日未內建。Taste版維持既有功能及2026假日資料，未套用本次修改。
