@@ -1,1 +1,1 @@
-{"name":"dayworks","private":true,"type":"module","scripts":{"test":"node tests/date-core.test.mjs && node tests/records-wheel.test.mjs && node tests/plus-core.test.mjs"}}
+{"name":"dayworks","private":true,"type":"module","scripts":{"test":"node tests/date-core.test.mjs && node tests/records-wheel.test.mjs && node tests/plus-core.test.mjs && node tests/backup.test.mjs"}}

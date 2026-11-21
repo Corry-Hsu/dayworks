@@ -31,3 +31,7 @@ Ad-free date and construction workday calculator with scroll-wheel date selectio
 新版原始碼位於 [`taste/`](taste/)，包含獨立 README、設計及檢查報告、18組測試與可直接部署的 `dist/`。GitHub Pages 部署完成後，可從 `taste/` 入口開啟新版；原版仍由網站根目錄開啟。兩套版本不需額外安裝依賴，Pages 流程會檢查兩套測試並一起部署。
 
 同一 GitHub Pages 網域內兩版共用 localStorage 紀錄；其他 Sites 網域的紀錄不會自動帶入，可由舊站匯出後，在 Taste 工程紀錄頁匯入。
+
+## 紀錄匯入
+
+工程紀錄頁的「匯入舊紀錄」可讀取此工具匯出的JSON（最多5MB），合併兩種類型，略過相同ID，不覆蓋已存在項目；格式或寫入錯誤會顯示原因。
