@@ -25,3 +25,9 @@ Ad-free date and construction workday calculator with scroll-wheel date selectio
 ## 分頁結構（更新）
 
 第一層為「日期計算／工程紀錄／日期加減」。日期計算第二層為「時間軸／色塊」，預設開啟時間軸；已移除月曆顯示模式。計算器內的互動月曆與滾動選日仍保留。舊 calendar.html 入口自動導向時間軸並保留查詢參數。日期加減的深淺風格亦在第二層。
+
+## Taste 新版
+
+新版原始碼位於 [`taste/`](taste/)，包含獨立 README、設計及檢查報告、18組測試與可直接部署的 `dist/`。GitHub Pages 部署完成後，可從 `taste/` 入口開啟新版；原版仍由網站根目錄開啟。兩套版本不需額外安裝依賴，Pages 流程會檢查兩套測試並一起部署。
+
+同一 GitHub Pages 網域內兩版共用 localStorage 紀錄；其他 Sites 網域的紀錄不會自動帶入，可由舊站匯出後，在 Taste 工程紀錄頁匯入。

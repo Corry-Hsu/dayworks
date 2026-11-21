@@ -1,0 +1,1 @@
+{"name":"date-tools","private":true,"type":"module","scripts":{"test":"node tests/date-core.test.mjs && node tests/records-wheel.test.mjs && node tests/plus-core.test.mjs"}}

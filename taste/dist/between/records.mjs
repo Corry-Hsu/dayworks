@@ -1,0 +1,6 @@
+export const keyFor=kind=>`daybetween-${kind}-v1`;
+export function validRecord(r){return !!r&&typeof r.id==='string'&&typeof r.start==='string'&&typeof r.end==='string'&&typeof r.result==='string'&&typeof r.detail==='string';}
+export function readRecords(kind,storage=localStorage){const raw=JSON.parse(storage.getItem(keyFor(kind))||'[]');if(!Array.isArray(raw))throw new Error('紀錄格式不正確');return raw.filter(validRecord);}
+export function writeRecords(kind,records,storage=localStorage){storage.setItem(keyFor(kind),JSON.stringify(records));}
+export function recordURL(r,kind){const q=new URLSearchParams({start:r.start,end:r.end,mode:kind,name:r.name||''});if(r.options)for(const [k,field]of [['sat','saturday'],['sun','sunday'],['hol','holidays']])q.set(k,String(r.options[field]));if(kind==='work'&&!r.options){q.set('sat','true');q.set('sun','true');q.set('hol','false');q.set('legacy','1');}return `calendar.html?${q}`;}
+export function searchRecords(records,query){const q=query.trim().toLocaleLowerCase();return records.filter(r=>[r.name||'',r.start,r.end,r.result,r.detail].join(' ').toLocaleLowerCase().includes(q));}

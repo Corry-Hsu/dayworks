@@ -1,0 +1,2 @@
+export function daysInMonth(year,month){if(month===2)return year%4===0&&(year%100!==0||year%400===0)?29:28;return [4,6,9,11].includes(month)?30:31;}
+export function clampDate(year,month,day){year=Math.min(9999,Math.max(1,Math.trunc(year)));month=Math.min(12,Math.max(1,Math.trunc(month)));day=Math.min(daysInMonth(year,month),Math.max(1,Math.trunc(day)));return `${String(year).padStart(4,'0')}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;}
