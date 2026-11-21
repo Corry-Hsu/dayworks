@@ -21,4 +21,7 @@ test('非2026年度不能靜默套用假日，可單獨使用週末規則',()=>{
  assert.equal(workdays('2025-12-31','2026-01-02',{holidays:false}).working,3);
  assert.throws(()=>workdays('2026-01-02','2026-01-01'),/不可早於/);
 });
-test('2026全年應有365個日曆天、120天休假及245工作天',()=>{const r=workdays('2026-01-01','2026-12-31');assert.equal(Object.keys(HOLIDAYS).length,22);assert.equal(r.calendar,365);assert.equal(r.excluded,120);assert.equal(r.working,245);});
+test('2026全年應有365個日曆天、120天休假及245工作天',()=>{const r=workdays('2026-01-01','2026-12-31');assert.equal(Object.keys(HOLIDAYS).filter(d=>d.startsWith('2026-')).length,22);assert.equal(r.calendar,365);assert.equal(r.excluded,120);assert.equal(r.working,245);});
+
+test('2027年官方假日：121休假、244工作天及年底提前補假',()=>{const r=workdays('2027-01-01','2027-12-31');assert.equal(r.excluded,121);assert.equal(r.working,244);assert.equal(r.holidayOnly,17);assert.equal(Object.keys(HOLIDAYS).filter(d=>d.startsWith('2027-')).length,24);assert.match(HOLIDAYS['2027-12-31'],/2028/);});
+test('跨年、春節補假及年度邊界',()=>{assert.equal(workdays('2026-12-30','2027-01-04').working,3);assert.equal(workdays('2027-02-04','2027-02-10').working,0);assert.throws(()=>workdays('2027-12-31','2028-01-03'),/2026–2027/);});

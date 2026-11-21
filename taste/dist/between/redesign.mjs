@@ -15,7 +15,7 @@ function isRest(key){if(mode!=='work')return '';const day=new Date(`${key}T00:00
 function update(){
  start=$('start').value;end=$('end').value;result=null;$('error').textContent='';$('total').textContent='—';$('secondary').textContent='—';$('save').disabled=true;$('detail-count').textContent='';$('detail-content').replaceChildren();$('ratio').hidden=true;
  $('settings').hidden=mode!=='work';$('result-label').textContent=mode==='date'?'相隔':'工作天';$('secondary-label').textContent=mode==='date'?'含頭含尾':'日曆天數';
- const o=options();$('setting-label').textContent=[o.saturday?'六':null,o.sunday?'日':null,o.holidays?'2026 假日':null].filter(Boolean).join('・')||'不排除';
+ const o=options();$('setting-label').textContent=[o.saturday?'六':null,o.sunday?'日':null,o.holidays?'2026–2027 假日':null].filter(Boolean).join('・')||'不排除';
  document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
  if(start&&end){try{validity();result=mode==='date'?difference(start,end):workdays(start,end,o);$('total').textContent=fmt(mode==='date'?result.days:result.working);$('secondary').textContent=`${fmt(mode==='date'?result.inclusive:result.calendar)} 天`;$('save').disabled=false;
  if(mode==='work'){$('ratio').hidden=false;$('ratio-work').style.width=`${result.working/result.calendar*100}%`;$('ratio-working').textContent=`工作 ${fmt(result.working)}`;$('ratio-rest').textContent=`排除 ${fmt(result.excluded)}`;$('detail-count').textContent=`排除 ${fmt(result.excluded)} 天`;detail('週末',`${fmt(result.weekends)} 天`);detail('未與週末重疊的假日',`${fmt(result.holidayOnly)} 天`);for(const h of result.excludedHolidays)detail(h.date,`${h.name}${h.overlap?' · 與週末重疊':''}`);}
