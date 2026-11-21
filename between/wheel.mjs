@@ -15,4 +15,4 @@ $('wheel-cancel').onclick=()=>dialog.close();dialog.addEventListener('close',()=
 $('wheel-today').onclick=()=>{const d=new Date();parts=[d.getFullYear(),d.getMonth()+1,d.getDate()];sync();};
 dialog.querySelectorAll('[data-target]').forEach(b=>b.onclick=()=>selectTarget(b.dataset.target));
 $('wheel-input').addEventListener('change',()=>{if($('wheel-input').value&&$('wheel-input').checkValidity()){parts=$('wheel-input').value.split('-').map(Number);sync();}});
-for(const which of ['start','end']){const b=document.createElement('button');b.type='button';b.className='open-wheel';b.textContent='滾動選日';b.setAttribute('aria-label',which==='start'?'滾動選擇起始日':'滾動選擇終止日');b.onclick=()=>{dialog.showModal();selectTarget(which);};document.getElementById(which).after(b);}
+for(const which of ['start','end']){const b=document.createElement('button');b.type='button';b.className='open-wheel';b.hidden=which==='end'&&document.getElementById('end').readOnly;b.textContent='滾動選日';b.setAttribute('aria-label',which==='start'?'滾動選擇起始日':'滾動選擇終止日');b.onclick=()=>{dialog.showModal();selectTarget(which);};document.getElementById(which).after(b);}
